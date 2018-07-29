@@ -22,3 +22,12 @@ class TestGraph:
     def test_create_graph_class(self):
         graph = Graph()
         assert graph != None
+    
+    def test_graph_nodes_are_same(self):
+        graph = Graph()
+        node1 = Node('1')
+        node2 = Node('2')
+        graph.add_nodes([node1, node2])
+        assert len(graph.nodes) == 2
+        assert graph.nodes == [node1, node2]
+        
