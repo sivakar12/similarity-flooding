@@ -29,5 +29,5 @@ class TestGraph:
         node2 = Node('2')
         graph.add_nodes([node1, node2])
         assert len(graph.nodes) == 2
-        assert graph.nodes == [node1, node2]
+        assert graph.nodes == {node1, node2}
         

@@ -22,5 +22,5 @@ class TestPairwiseGraph:
         assert len(pairwise_graph.nodes) == 2
         assert len(pairwise_graph.edges) == 1
 
-        assert pairwise_graph.nodes == [NodePair(node11, node21), NodePair(node12, node22)]
-        assert pairwise_graph.edges == [Edge(NodePair(node11, node21), NodePair(node12, node22), EdgeType('child'))]
+        assert pairwise_graph.nodes == {NodePair(node11, node21), NodePair(node12, node22)}
+        assert pairwise_graph.edges == {Edge(NodePair(node11, node21), NodePair(node12, node22), EdgeType('child'))}

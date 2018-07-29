@@ -8,6 +8,9 @@ class Node:
     def __str__(self):
         return 'Node: "' + self.name + '"'
     
+    def __hash__(self):
+        return hash(self.name)
+    
     def __eq__(self, other):
         return self.name == other.name
 
@@ -20,6 +23,9 @@ class EdgeType:
     
     def __eq__(self, other):
         return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
 
 class Edge:
     def __init__(self, source, destination, edge_type):
@@ -40,16 +46,18 @@ class Edge:
     def __eq__(self, other):
         return self.source == other.source and self.destination == other.destination and self.edge_type == other.edge_type
 
+    def __hash__(self):
+        return hash(hash(self.source) + hash(self.destination) + hash(self.edge_type))
 class Graph:
     def __init__(self):
-        self.nodes = []
-        self.edges = []
+        self.nodes = set()
+        self.edges = set()
     
     def add_nodes(self, nodes):
-        self.nodes.extend(nodes)
+        self.nodes.update(nodes)
     
     def add_edges(self, edges):
-        self.edges.extend(edges)
+        self.edges.update(edges)
 
 class NodePair:
     def __init__(self, left, right):
@@ -62,11 +70,13 @@ class NodePair:
     def __eq__(self, other):
         return self.left == other.left and self.right == other.right
 
+    def __hash__(self):
+        return hash(hash(self.left) + hash(self.right))
 
 class PairwiseGraph:
     def __init__(self, graph_1, graph_2):
-        self.nodes = []
-        self.edges = []
+        self.nodes = set()
+        self.edges = set()
 
         self.generate_pairwise_graph(graph_1, graph_2)
 
@@ -79,10 +89,10 @@ class PairwiseGraph:
                     edge = Edge(source_node, dest_node, edge_1.edge_type)
 
                     if source_node not in self.nodes:
-                        self.nodes.append(source_node)
+                        self.nodes.update([source_node])
                     if dest_node not in self.nodes:
-                        self.nodes.append(dest_node)
-                    self.edges.append(edge)
+                        self.nodes.update([dest_node])
+                    self.edges.update([edge])
     
     def next_iteration(self):
         pass
